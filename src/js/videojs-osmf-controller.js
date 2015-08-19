@@ -59,6 +59,8 @@
   var createSetter = function(attr){
     var attrUpper = attr.charAt(0).toUpperCase() + attr.slice(1);
     api['set'+attrUpper] = function(val){
+      if (!this.el_.vjs_setProperty)
+          return;
       return this.el_.vjs_setProperty(attr, val);
     };
   };
@@ -69,6 +71,8 @@
    */
   var createGetter = function(attr){
     api[attr] = function(){
+      if (!this.el_.vjs_getProperty)
+          return;
       return this.el_.vjs_getProperty(attr);
     };
   };
