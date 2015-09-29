@@ -292,8 +292,14 @@ public class VideoJSOSMF extends Sprite {
   private function onMediaPlayerStateChangeEvent(event:MediaPlayerStateChangeEvent):void {
     Console.log('onMediaPlayerStateChangeEvent', event.toString());
     switch (event.state) {
+      case MediaPlayerState.READY:
+        dispatchExternalEvent('canplay');
+        break;
       case MediaPlayerState.PLAYING:
       case MediaPlayerState.PAUSED:
+        dispatchExternalEvent(event.state);
+        dispatchExternalEvent('canplay');
+        break;
       case MediaPlayerState.BUFFERING:
       case MediaPlayerState.PLAYBACK_ERROR:
       case MediaPlayerState.LOADING:
