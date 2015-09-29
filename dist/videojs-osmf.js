@@ -37,12 +37,13 @@
     }
   });
 
+  videojs.Osmf.log_enabled = false;
+
   videojs.Osmf.formats = {
     'application/adobe-f4m': 'F4M',
     'application/adobe-f4v': 'F4V',
     'application/dash+xml': 'MPD'
   };
-
 //
 
 // Create setters and getters for attributes
@@ -166,7 +167,8 @@ videojs.Osmf.prototype.streamStatus = function() {
   };
 
   videojs.Osmf.onReady = function (currentSwf) {
-    videojs.log('OSMF', 'Ready', currentSwf);
+    if (videojs.Osmf.log_enabled)
+      videojs.log('OSMF', 'Ready', currentSwf);
 
     // Tell Flash tech we are ready
     videojs.Flash.onReady(currentSwf);
@@ -184,7 +186,8 @@ videojs.Osmf.prototype.streamStatus = function() {
   videojs.Osmf.onError = function (currentSwf, err) {
     var player = document.getElementById(currentSwf).player;
 
-    videojs.log('OSMF', 'Error', err);
+    if (videojs.Osmf.log_enabled)
+      videojs.log('OSMF', 'Error', err);
 
     if (err == 'loaderror') {
       err = 'srcnotfound';
@@ -208,11 +211,13 @@ videojs.Osmf.prototype.streamStatus = function() {
 
     // First Play Rules
     if(event === 'playing' && player.tech.firstplay === false) {
-      videojs.log('OSMF', 'Event', currentSwf, 'loadstart');
+      if (videojs.Osmf.log_enabled)
+        videojs.log('OSMF', 'Event', currentSwf, 'loadstart');
       player.trigger('loadstart');
       player.tech.loadstart = true;
 
-      videojs.log('OSMF', 'Event', currentSwf, 'firstplay');
+      if (videojs.Osmf.log_enabled)
+        videojs.log('OSMF', 'Event', currentSwf, 'firstplay');
       player.trigger('firstplay');
       player.tech.firstplay = true;
     }
@@ -231,7 +236,8 @@ videojs.Osmf.prototype.streamStatus = function() {
 
     // Logging if not a timeupdate
     if(event!=='timeupdate') {
-      videojs.log('OSMF', 'Event', currentSwf, event);
+      if (videojs.Osmf.log_enabled)
+        videojs.log('OSMF', 'Event', currentSwf, event);
     }
   };
 //
