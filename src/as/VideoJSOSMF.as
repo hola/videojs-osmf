@@ -494,7 +494,7 @@ public class VideoJSOSMF extends Sprite {
         break;
 
       case 'buffered':
-        return (_mediaPlayer) ? +_mediaPlayer.currentTime + _mediaPlayer.bufferTime : 0;
+        return (_mediaPlayer) ? +_mediaPlayer.currentTime + _mediaPlayer.bufferLength : 0;
         break;
 
       default:
